@@ -1,0 +1,11 @@
+.post {
+  border: 1px solid #0707076d;
+}
+
+.post span {
+  text-decoration: underline;
+}
+
+form {
+  margin-top: 50px;
+}
