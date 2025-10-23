@@ -1,6 +1,6 @@
 /* Post Component Styles */
 .post {
-  background: var(--background);
+  background: var(--card-background);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
@@ -92,7 +92,7 @@
 
 /* Form Styles */
 .form-container {
-  background: var(--background);
+  background: var(--form-background);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
@@ -101,6 +101,7 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  transition: all var(--transition-normal);
 }
 
 .form-container h2 {
@@ -131,7 +132,7 @@
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
   font-family: var(--font-family);
-  background: var(--background);
+  background: var(--form-background);
   color: var(--text-primary);
   transition: all var(--transition-fast);
 }
@@ -217,4 +218,46 @@
 
 .post.new-post {
   animation: slideInUp var(--transition-slow) ease-out;
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Responsive theme toggle */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 44px;
+    height: 44px;
+    font-size: var(--font-size-base);
+  }
 }

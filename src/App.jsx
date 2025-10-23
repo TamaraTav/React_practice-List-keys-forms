@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Post from "./components/Post";
+import ThemeToggle from "./components/ThemeToggle";
 
 //list and keys
 
@@ -66,9 +67,10 @@ function App() {
 
   return (
     <div className="container">
+      <ThemeToggle />
       <h1 className="text-center mb-8">📝 Blog Posts</h1>
 
-      {postsData.map((post, index) => (
+      {postsData.map((post) => (
         <Post
           key={post.id}
           post={post}
