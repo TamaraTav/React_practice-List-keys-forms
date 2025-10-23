@@ -15,8 +15,7 @@ const posts = [
   {
     id: 2,
     author: "Jane Smith",
-    title:
-      "Understanding Asynchronous Programming",
+    title: "Understanding Asynchronous Programming",
     content:
       "Asynchronous programming allows for non-blocking operations in JavaScript.",
   },
@@ -40,35 +39,35 @@ function App() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-  const [postsData, setPostsData] =
-    useState(posts);
+  const [postsData, setPostsData] = useState(posts);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // setPostsData([
-    //   ...postsData,
-    //   {
-    //     title,
-    //     content,
-    //     author,
-    //     id: Math.random(),
-    //   },
-    // ]);
+    if (!title.trim() || !content.trim() || !author.trim()) {
+      return;
+    }
 
     setPostsData((prevPosts) => [
       ...prevPosts,
       {
-        title,
-        content,
-        author,
+        title: title.trim(),
+        content: content.trim(),
+        author: author.trim(),
         id: Math.random(),
       },
     ]);
+
+    // Clear form
+    setTitle("");
+    setContent("");
+    setAuthor("");
   };
 
   return (
-    <>
+    <div className="container">
+      <h1 className="text-center mb-8">📝 Blog Posts</h1>
+
       {postsData.map((post, index) => (
         <Post
           key={post.id}
@@ -78,39 +77,47 @@ function App() {
         />
       ))}
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">Title</label>
-          <input
-            type="text"
-            onChange={(event) =>
-              setTitle(event.target.value)
-            }
-          />
-        </div>
+      <div className="form-container">
+        <h2>Add New Post</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              placeholder="Enter post title..."
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="">Content</label>
-          <input
-            type="text"
-            onChange={(event) =>
-              setContent(event.target.value)
-            }
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="content">Content</label>
+            <input
+              id="content"
+              type="text"
+              value={content}
+              placeholder="Enter post content..."
+              onChange={(event) => setContent(event.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="">Author</label>
-          <input
-            type="text"
-            onChange={(event) =>
-              setAuthor(event.target.value)
-            }
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </>
+          <div className="form-group">
+            <label htmlFor="author">Author</label>
+            <input
+              id="author"
+              type="text"
+              value={author}
+              placeholder="Enter author name..."
+              onChange={(event) => setAuthor(event.target.value)}
+            />
+          </div>
+          <button type="submit" className="submit-btn">
+            Create Post
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 
