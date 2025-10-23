@@ -11,6 +11,7 @@ function App() {
   const [postsData, setPostsData] = useState(posts);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterFavorites, setFilterFavorites] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,10 +32,11 @@ function App() {
       },
     ]);
 
-    // Clear form
+    // Clear form and close modal
     setTitle("");
     setContent("");
     setAuthor("");
+    setShowModal(false);
   };
 
   // Filter posts based on search term and favorites
@@ -93,6 +95,13 @@ function App() {
         </button>
       </div>
 
+      {/* Add New Post Button */}
+      <div className="add-post-container">
+        <button className="add-post-btn" onClick={() => setShowModal(true)}>
+          ✨ Add New Post
+        </button>
+      </div>
+
       {filteredPosts.map((post) => (
         <Post
           key={post.id}
@@ -102,46 +111,65 @@ function App() {
         />
       ))}
 
-      <div className="form-container">
-        <h2>Add New Post</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              type="text"
-              value={title}
-              placeholder="Enter post title..."
-              onChange={(event) => setTitle(event.target.value)}
-            />
-          </div>
+      {/* Modal */}
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Add New Post</h2>
+              <button className="close-btn" onClick={() => setShowModal(false)}>
+                ✕
+              </button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  id="title"
+                  type="text"
+                  value={title}
+                  placeholder="Enter post title..."
+                  onChange={(event) => setTitle(event.target.value)}
+                />
+              </div>
 
-          <div className="form-group">
-            <label htmlFor="content">Content</label>
-            <input
-              id="content"
-              type="text"
-              value={content}
-              placeholder="Enter post content..."
-              onChange={(event) => setContent(event.target.value)}
-            />
-          </div>
+              <div className="form-group">
+                <label htmlFor="content">Content</label>
+                <input
+                  id="content"
+                  type="text"
+                  value={content}
+                  placeholder="Enter post content..."
+                  onChange={(event) => setContent(event.target.value)}
+                />
+              </div>
 
-          <div className="form-group">
-            <label htmlFor="author">Author</label>
-            <input
-              id="author"
-              type="text"
-              value={author}
-              placeholder="Enter author name..."
-              onChange={(event) => setAuthor(event.target.value)}
-            />
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input
+                  id="author"
+                  type="text"
+                  value={author}
+                  placeholder="Enter author name..."
+                  onChange={(event) => setAuthor(event.target.value)}
+                />
+              </div>
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="submit-btn">
+                  Create Post
+                </button>
+              </div>
+            </form>
           </div>
-          <button type="submit" className="submit-btn">
-            Create Post
-          </button>
-        </form>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
