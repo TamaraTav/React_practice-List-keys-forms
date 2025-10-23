@@ -2,45 +2,15 @@ import { useState } from "react";
 import "./App.css";
 import Post from "./components/Post";
 import ThemeToggle from "./components/ThemeToggle";
-
-//list and keys
-
-const posts = [
-  {
-    id: 1,
-    author: "John Doe",
-    title: "Introduction to JavaScript",
-    content:
-      "JavaScript is a versatile language used for both front-end and back-end development.",
-  },
-  {
-    id: 2,
-    author: "Jane Smith",
-    title: "Understanding Asynchronous Programming",
-    content:
-      "Asynchronous programming allows for non-blocking operations in JavaScript.",
-  },
-  {
-    id: 3,
-    author: "Alex Johnson",
-    title: "Mastering ES6 Features",
-    content:
-      "ES6 introduced many new features like arrow functions, classes, and template literals.",
-  },
-  {
-    id: 4,
-    author: "Emily Davis",
-    title: "A Guide to Modern Web Development",
-    content:
-      "Modern web development involves frameworks like React, Angular, and Vue.js.",
-  },
-];
+import posts from "./data/posts.json";
 
 function App() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [postsData, setPostsData] = useState(posts);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterFavorites, setFilterFavorites] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,6 +25,8 @@ function App() {
         title: title.trim(),
         content: content.trim(),
         author: author.trim(),
+        date: new Date().toISOString().split("T")[0],
+        isFavorite: false,
         id: Math.random(),
       },
     ]);
@@ -65,12 +37,63 @@ function App() {
     setAuthor("");
   };
 
+  // Filter posts based on search term and favorites
+  const filteredPosts = postsData.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesFavorites = !filterFavorites || post.isFavorite;
+
+    return matchesSearch && matchesFavorites;
+  });
+
+  // Get statistics
+  const totalPosts = postsData.length;
+  const favoritePosts = postsData.filter((post) => post.isFavorite).length;
+
   return (
     <div className="container">
       <ThemeToggle />
       <h1 className="text-center mb-8">📝 Blog Posts</h1>
 
-      {postsData.map((post) => (
+      {/* Statistics */}
+      <div className="stats-container">
+        <div className="stat-item">
+          <span className="stat-number">{totalPosts}</span>
+          <span className="stat-label">Total Posts</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">{favoritePosts}</span>
+          <span className="stat-label">Favorites</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">{filteredPosts.length}</span>
+          <span className="stat-label">Showing</span>
+        </div>
+      </div>
+
+      {/* Search and Filter */}
+      <div className="search-container">
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="🔍 Search posts..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+        </div>
+        <button
+          className={`filter-btn ${filterFavorites ? "active" : ""}`}
+          onClick={() => setFilterFavorites(!filterFavorites)}
+        >
+          ⭐ {filterFavorites ? "Show All" : "Favorites Only"}
+        </button>
+      </div>
+
+      {filteredPosts.map((post) => (
         <Post
           key={post.id}
           post={post}

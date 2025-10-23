@@ -33,12 +33,41 @@
   opacity: 1;
 }
 
-.post h1 {
+/* Post Header */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.post-header h1 {
   color: var(--text-primary);
   font-size: var(--font-size-xl);
   font-weight: 600;
-  margin-bottom: var(--space-3);
+  margin: 0;
   line-height: 1.4;
+  flex: 1;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  margin-left: var(--space-3);
+}
+
+.favorite-btn:hover {
+  background: var(--surface);
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  color: #fbbf24;
 }
 
 .post p {
@@ -46,6 +75,14 @@
   font-size: var(--font-size-base);
   line-height: 1.6;
   margin-bottom: var(--space-4);
+}
+
+/* Post Meta */
+.post-meta {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
 }
 
 .post .author {
@@ -57,12 +94,29 @@
   background: var(--surface);
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
-  margin-bottom: var(--space-4);
 }
 
 .post .author::before {
   content: "👤";
   margin-right: var(--space-2);
+}
+
+.post .date {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-light);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  background: var(--surface);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+/* Post Actions */
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
 }
 
 .post .delete-btn {
@@ -186,8 +240,29 @@
     margin-bottom: var(--space-4);
   }
 
-  .post h1 {
+  .post-header h1 {
     font-size: var(--font-size-lg);
+  }
+
+  .post-meta {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .stats-container {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .search-container {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .filter-btn {
+    width: 100%;
+    text-align: center;
   }
 
   .form-container {
@@ -218,6 +293,93 @@
 
 .post.new-post {
   animation: slideInUp var(--transition-slow) ease-out;
+}
+
+/* Statistics Container */
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding: var(--space-4);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.stat-number {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.filter-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
 }
 
 /* Theme Toggle Styles */

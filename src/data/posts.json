@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "author": "John Doe",
+    "title": "Introduction to JavaScript",
+    "content": "JavaScript is a versatile language used for both front-end and back-end development.",
+    "date": "2024-01-15",
+    "isFavorite": false
+  },
+  {
+    "id": 2,
+    "author": "Jane Smith",
+    "title": "Understanding Asynchronous Programming",
+    "content": "Asynchronous programming allows for non-blocking operations in JavaScript.",
+    "date": "2024-01-20",
+    "isFavorite": true
+  },
+  {
+    "id": 3,
+    "author": "Alex Johnson",
+    "title": "Mastering ES6 Features",
+    "content": "ES6 introduced many new features like arrow functions, classes, and template literals.",
+    "date": "2024-01-25",
+    "isFavorite": false
+  },
+  {
+    "id": 4,
+    "author": "Emily Davis",
+    "title": "A Guide to Modern Web Development",
+    "content": "Modern web development involves frameworks like React, Angular, and Vue.js.",
+    "date": "2024-01-30",
+    "isFavorite": true
+  }
+]
